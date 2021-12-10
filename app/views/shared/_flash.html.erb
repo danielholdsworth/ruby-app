@@ -1,7 +1,11 @@
-<div class=" alert alert-success mt-4" role="alert">
-<%= flash[:notice] %>
-</div>
+<% if flash[:notice] %>
+    <div class=" alert alert-success mt-4" role="alert">
+        <%= flash.now[:notice] %>
+    </div>
+<% end %>
 
-<div class=" alert alert-danger mt-4" role="alert">
-<%= flash[:alert] %>
-</div>
+<% if flash[:alert] %>
+    <div class=" alert alert-danger mt-4" role="alert">
+        <%= flash.now[:alert] %>
+    </div>
+<% end %>
