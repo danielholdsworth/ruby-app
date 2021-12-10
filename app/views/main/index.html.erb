@@ -2,8 +2,8 @@
     <h1>Welcome To My App</h1>
 </div>
 
-<% if @user %>
-    Logged in as: <%= @user.email %>
+<% if Current.user %>
+    Logged in as: <%= Current.user.email %>
 
     <%= button_to "Logout", logout_path, method: :delete %>
 
