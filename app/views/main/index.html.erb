@@ -2,9 +2,4 @@
     <h1>Welcome To My App</h1>
 </div>
 
-<% if Current.user %>
-    Logged in as: <%= Current.user.email %>
-
-    <%= button_to "Logout", logout_path, method: :delete %>
-
-<% end %>
+<%= button_to "Connect Twitter", "/auth/twitter/", method: :post, class: "btn btn-primary" %>
