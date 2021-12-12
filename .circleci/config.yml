@@ -12,7 +12,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:3.0.2-stretch-node
+      - image: ruby:3.0.2-buster
     executor: ruby/default
     steps:
       - checkout
