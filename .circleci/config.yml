@@ -24,7 +24,7 @@ jobs:
       - image: ruby:3.0.2-buster
     executor: ruby/default
     steps:
-      - heroku/push-docker-image:
+      - heroku/deploy-via-git:
           api-key: HEROKU_API_KEY 
           app-name: HEROKU_APP_NAME 
           filters:
