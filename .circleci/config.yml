@@ -20,15 +20,6 @@ jobs:
           command: bundle -v
       - ruby/bundle-install
 
-  test:
-    docker:
-      - image: ruby:3.0.2-buster
-    executor: ruby/default
-    steps:
-      - checkout
-      - recipes-ruby/run-linter
-
-
   deploy:
     docker:
       - image: ruby:3.0.2-buster
@@ -45,11 +36,9 @@ workflows:
   ruby-app:
     jobs:
       - build
-      - test
       - deploy:
           requires:
             - build
-            - test
           filters:
             branches:
               only: master
