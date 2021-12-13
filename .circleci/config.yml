@@ -26,6 +26,9 @@ jobs:
     steps:
       - checkout
       - heroku/deploy-via-git
+      - run:
+          name: migrate pg db
+          command: heroku run rails db:migrate
 
 workflows:
   ruby-app:
