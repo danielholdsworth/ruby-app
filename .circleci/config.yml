@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
   heroku: circleci/heroku@1.2.6
+  recipes-ruby: betterdoc/recipes-ruby@5.9.0
 
 jobs:
   build:
@@ -18,6 +19,15 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/bundle-install
+
+  test:
+    docker:
+      - image: ruby:3.0.2-buster
+    executor: ruby/default
+    steps:
+      - checkout
+      - recipes-ruby/run-linter
+
 
   deploy:
     docker:
@@ -35,9 +45,11 @@ workflows:
   ruby-app:
     jobs:
       - build
+      - test
       - deploy:
           requires:
             - build
+            - test
           filters:
             branches:
               only: master
