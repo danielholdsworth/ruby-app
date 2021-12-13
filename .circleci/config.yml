@@ -45,9 +45,6 @@ workflows:
   ruby-app:
     jobs:
       - build
-      - cypress/run:
-          requires:
-            - build
       - deploy:
           requires:
             - build
