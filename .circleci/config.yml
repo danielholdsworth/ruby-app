@@ -25,10 +25,10 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
+      - heroku/install
       - heroku/deploy-via-git
-      - run:
-          name: migrate pg db
-          command: heroku run rails db:migrate
+        post-steps:
+          - run: heroku run rake db:migrate
 
 workflows:
   ruby-app:
