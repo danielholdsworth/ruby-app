@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
   heroku: circleci/heroku@1.2.6
+  cypress: cypress-io/cypress@1
 
 jobs:
   build:
@@ -11,6 +12,11 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
+      - restore_cache:
+          name: Restore Gem Cache
+          keys: 
+            - m1-{{ checksum "Gemfile.lock" }}
+            - m1- 
       - run:
           name: install bundle
           command: gem install bundler:2.2.22
@@ -18,6 +24,11 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/bundle-install
+      - save_cache:
+          name: Save Gemfile Cache
+          key: m1-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/.cache/gem
 
   deploy:
     docker:
@@ -35,9 +46,11 @@ workflows:
   ruby-app:
     jobs:
       - build
+      - cypress/run
       - deploy:
           requires:
             - build
+            - cypress/run
           filters:
             branches:
               only: master
