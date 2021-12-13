@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
   heroku: circleci/heroku@1.2.6
+  cypress: cypress-io/cypress@1
 
 jobs:
   build:
@@ -45,9 +46,11 @@ workflows:
   ruby-app:
     jobs:
       - build
+      - cypress/run
       - deploy:
           requires:
             - build
+            - cypress/run
           filters:
             branches:
               only: master
