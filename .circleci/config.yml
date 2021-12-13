@@ -1,0 +1,40 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@0.1.2
+  heroku: circleci/heroku@1.2.6
+
+jobs:
+  build:
+    docker:
+      - image: ruby:3.0.2-buster
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: install bundle
+          command: gem install bundler:2.2.22
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - ruby/bundle-install
+
+  deploy:
+    docker:
+      - image: ruby:3.0.2-buster
+    executor: ruby/default
+    steps:
+      - heroku/deploy-via-git:
+          api-key: HEROKU_API_KEY 
+          app-name: HEROKU_APP_NAME      
+
+workflows:
+  ruby-app:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master 
