@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.2.0
   heroku: circleci/heroku@1.2.6
+  rails: finalcad/rails@2.3.0
 
 jobs:
   build:
@@ -35,16 +36,7 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - run:
-          name: install bundle
-          command: gem install bundler:2.2.22
-      - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/install-deps
-      - run:
-          name: run rails test
-          command: rails test
+      - rails/run_tests
 
   deploy:
     docker:
