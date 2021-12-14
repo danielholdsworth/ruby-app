@@ -36,6 +36,13 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
+      - run:
+          name: install bundle
+          command: gem install bundler:2.2.22
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - ruby/install-deps
       - rails/run_tests
 
   deploy:
