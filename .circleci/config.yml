@@ -30,7 +30,7 @@ jobs:
           paths:
             - ~/.cache/gem
 
-  test:
+  unit-test:
     docker:
       - image: ruby:3.0.2-buster
     executor: ruby/default
@@ -61,12 +61,12 @@ workflows:
   ruby-app:
     jobs:
       - build
-      - test:
+      - unit-test:
           requires:
             - build
       - deploy:
           requires:
-            - test
+            - unit-test
           filters:
             branches:
               only: master
