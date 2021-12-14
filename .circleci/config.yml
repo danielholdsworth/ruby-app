@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@0.1.2
+  ruby: circleci/ruby@1.2.0
   heroku: circleci/heroku@1.2.6
 
 jobs:
@@ -22,12 +22,20 @@ jobs:
       - run:
           name: Which bundler?
           command: bundle -v
-      - ruby/bundle-install
+      - ruby/install-deps
       - save_cache:
           name: Save Gemfile Cache
           key: m1-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/.cache/gem
+
+  test:
+    docker:
+      - image: ruby:3.0.2-buster
+    executor: ruby/default
+    steps:
+      - checkout
+      - ruby/rspec-test
 
   deploy:
     docker:
@@ -45,9 +53,12 @@ workflows:
   ruby-app:
     jobs:
       - build
-      - deploy:
+      - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
           filters:
             branches:
               only: master
