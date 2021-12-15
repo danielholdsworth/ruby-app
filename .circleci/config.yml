@@ -55,7 +55,7 @@ jobs:
           command: rails db:create
       - run:
           name: Install node
-          command: apt update; apt install nodejs
+          command: apt update; apt install nodejs -y
       - run:
           name: Run webpack install
           command: rails webpacker:install
