@@ -54,8 +54,8 @@ jobs:
           name: Set up DB
           command: rails db:create
       - run:
-          name: Install node
-          command: apt update; apt install nodejs -y
+          name: Install yarn and node
+          command: apt update; apt install yarn -y
       - run:
           name: Run webpack install
           command: rails webpacker:install
