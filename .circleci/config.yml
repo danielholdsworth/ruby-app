@@ -61,7 +61,7 @@ jobs:
           command: rails webpacker:install
       - run:
           name: run unit test
-          command: mkdir ~/test-results; rails test > ~/test-results/unit-test
+          command: mkdir ~/test-results; rm config/webpacker.yml; rails test > ~/test-results/unit-test
       - store_test_results:
           path: ~/test-results
       #store code coverage artifact
