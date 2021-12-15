@@ -64,6 +64,8 @@ jobs:
           command: mkdir ~/test-results; rails test > ~/test-results/unit-test
       - store_test_results:
           path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results
 
   deploy:
     docker:
