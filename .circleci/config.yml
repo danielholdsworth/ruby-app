@@ -42,7 +42,13 @@ jobs:
       - run:
           name: Which bundler?
           command: bundle -v
+      - run: 
+        name: install rails
+        command: gem install rails
       - ruby/install-deps
+      - run:
+        name: install psql
+          command: apt update -y; apt install sudo -y; sudo apt install postgresql postgresql-contrib -y; pg_ctlcluster 11 main start
       - run:
           name: run unit test
           command: rails test
