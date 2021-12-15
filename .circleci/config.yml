@@ -54,6 +54,9 @@ jobs:
           name: Set up DB
           command: rails db:create
       - run:
+          name: Install node
+          command: apt install nodejs
+      - run:
           name: Run webpack install
           command: rails webpacker:install
       - run:
