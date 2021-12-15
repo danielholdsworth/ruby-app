@@ -32,7 +32,7 @@ jobs:
 
   unit-test:
     docker:
-      - image: ruby:3.0.2-buster
+      - image: bitnami/rails
     executor: ruby/default
     steps:
       - checkout
