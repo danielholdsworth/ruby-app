@@ -1,0 +1,19 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/danielholdsworth/Git/rails-app/myapp/test/controllers/welcome_test.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          0,
+          0,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1639586640
+  }
+}
