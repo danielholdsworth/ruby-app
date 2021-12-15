@@ -32,7 +32,7 @@ jobs:
   unit-test:
     docker:
       - image: ruby:3.0.2-buster
-      - image: cimg/postgres
+      - image: cimg/postgres:14.1
 
     executor: ruby/default
     steps:
