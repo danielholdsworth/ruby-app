@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: ruby:3.0.2-buster
     executor: ruby/default
     steps:
       - checkout
@@ -31,7 +31,7 @@ jobs:
 
   unit-test:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: ruby:3.0.2-buster
       - image: cimg/postgres
 
     executor: ruby/default
@@ -46,10 +46,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: install dockerize
-          command: |
-          wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
-          && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
-          && rm dockerize-linux-amd64-v0.6.1.tar.gz
+          command: wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz && rm dockerize-linux-amd64-v0.6.1.tar.gz
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
