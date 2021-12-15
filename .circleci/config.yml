@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.2.0
   heroku: circleci/heroku@1.2.6
-  rails: finalcad/rails@2.3.0
 
 jobs:
   build:
@@ -34,7 +33,7 @@ jobs:
     docker:
       - image: ruby:3.0.2-buster
       - image: circleci/postgres:9.6-alpine
-      
+
     executor: ruby/default
     steps:
       - checkout
