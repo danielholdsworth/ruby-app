@@ -52,7 +52,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
           name: Set up DB
-          command: rails db:create
+          command: rails db:create; rails db:schema:load
       - run:
           name: run unit test
           command: rails test
