@@ -33,6 +33,11 @@ jobs:
   unit-test:
     docker:
       - image: ruby:3.0.2-buster
+      - image: circleci/postgres:alpine
+        environment:
+          POSTGRES_DB: dbname
+          POSTGRES_USER: "username"
+          POSTGRES_PASSWORD: ""
     executor: ruby/default
     steps:
       - checkout
