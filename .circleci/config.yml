@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: ruby:3.0.2-buster
+      - image: cimg/ruby:3.0.2
     executor: ruby/default
     steps:
       - checkout
@@ -31,25 +31,22 @@ jobs:
 
   unit-test:
     docker:
-      - image: ruby:3.0.2-buster
-      - image: circleci/postgres:9.6-alpine
+      - image: cimg/ruby:3.0.2
+      - image: cimg/postgres
 
     executor: ruby/default
     steps:
       - checkout
       - run:
-          name: install bundle
-          command: gem install bundler:2.2.22
-      - run:
           name: install rails
           command: gem install rails:6.1.4.1
-      - run:
-          name: Which bundler?
-          command: bundle -v
       - run: 
           name: install rails
           command: gem install rails
       - ruby/install-deps
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
           name: Set up DB
           command: rails db:create
@@ -59,7 +56,7 @@ jobs:
 
   deploy:
     docker:
-      - image: ruby:3.0.2-buster
+      - image: cimg/ruby:3.0.2
     executor: ruby/default
     steps:
       - checkout
