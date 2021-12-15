@@ -33,12 +33,20 @@ jobs:
   unit-test:
     docker:
       - image: ruby:3.0.2-buster
+      - image: circleci/postgres:alpine
+        environment:
+          POSTGRES_DB: dbname
+          POSTGRES_USER: "username"
+          POSTGRES_PASSWORD: ""
     executor: ruby/default
     steps:
       - checkout
       - run:
           name: install bundle
           command: gem install bundler:2.2.22
+      - run:
+          name: install rails
+          command: gem install rails:6.1.4.1
       - run:
           name: Which bundler?
           command: bundle -v
