@@ -7,15 +7,15 @@ development:
   <<: *default
   #database: db/development.sqlite3
   database: myapp_dev
+  host: localhost
 
 test:
   <<: *default
   #database: db/test.sqlite3
   database: myapp_test
+  host: localhost
 
 production:
   <<: *default
   #database: db/production.sqlite3
   database: myapp_prod
-
-host: localhost
