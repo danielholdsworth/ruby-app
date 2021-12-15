@@ -54,6 +54,9 @@ jobs:
           name: Set up DB
           command: rails db:create
       - run:
+          name: Run webpack install
+          command: rails webpacker:install
+      - run:
           name: run unit test
           command: rails test
 
