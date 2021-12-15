@@ -43,6 +43,9 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps
+      - run:
+          name: make results folder
+          command: mkdir ~/project/results
       - rails/run_tests
 
   deploy:
