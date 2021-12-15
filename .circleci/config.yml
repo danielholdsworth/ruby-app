@@ -44,9 +44,8 @@ jobs:
           command: bundle -v
       - ruby/install-deps
       - run:
-          name: make results folder
-          command: mkdir ~/project/results
-      - rails/run_tests
+          name: run unit test
+          command: rails test
 
   deploy:
     docker:
