@@ -54,8 +54,17 @@ jobs:
           name: Run webpack install
           command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
       - run:
-          name: Rspec Views
-          command: rspec spec/views
+          command: >
+            mkdir -p unit-test
+
+            bundle exec rspec spec/views --profile 10 --format RspecJunitFormatter 
+            --out unit-test/results.xml --format progress
+          name: Rspec views
+      - store_test_results:
+          path: unit-test/
+      - store_artifacts:
+          destination: test-results
+          path: unit-test/
       - run:
           name: run rubocop
           command: rubocop . --out check-results.xml || true
