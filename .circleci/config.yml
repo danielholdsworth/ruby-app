@@ -4,8 +4,7 @@ orbs:
   ruby: circleci/ruby@1.2.0
   heroku: circleci/heroku@1.2.6
   ruby-linter: amyroi/ruby-linter@1.0.1
-
-
+  cypress: cypress-io/cypress@1.1.0
 
 jobs:
   build:
@@ -56,6 +55,7 @@ jobs:
           name: Run webpack install
           command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
       - ruby/rspec-test
+      - cypress/run
       - store_artifacts:
           path: coverage/
 
