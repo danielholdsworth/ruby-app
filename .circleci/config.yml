@@ -31,7 +31,7 @@ jobs:
 
   unit-test:
     docker:
-      - image: ruby:3.0.2-buster
+      - image: cimg/ruby:3.0.2
       - image: cimg/postgres:14.1
 
     executor: ruby/default
@@ -61,9 +61,8 @@ jobs:
           command: rm config/webpacker.yml; rails webpacker:install
       - run:
           name: run unit test
-          command: mkdir ~/test-results; rails test > ~/test-results/unit-test
-      - store_test_results:
-          path: ~/test-results
+          command: rails test
+      - ruby/rubocop-check
       #store code coverage artifact
       - store_artifacts:
           path: coverage/
