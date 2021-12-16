@@ -38,7 +38,7 @@ jobs:
           command: rails db:create
       - run:
           name: Install yarn and node
-          command: apt update; apt install sudo -y ;curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; apt install nodejs -y; npm install --global yarn -y
+          command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
       - run:
           name: Run webpack install
           command: rm config/webpacker.yml; rails webpacker:install
