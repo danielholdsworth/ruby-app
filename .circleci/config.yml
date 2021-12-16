@@ -66,7 +66,7 @@ jobs:
           path: ~/test-results
       #store code coverage artifact
       - store_artifacts:
-          path: coverage/*
+          path: coverage/
 
   deploy:
     docker:
