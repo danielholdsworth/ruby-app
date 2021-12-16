@@ -21,19 +21,19 @@ jobs:
 
   unit-test:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: ruby:3.0.2-buster
       - image: cimg/postgres:14.1
 
     executor: ruby/default
     steps:
       - checkout
       - run:
-          name: install rails
-          command: gem install rails:6.1.4.1
+          name: install rails & rubocop
+          command: gem install rails:6.1.4.1 ; gem install rubocop
       - ruby/install-deps
-      #- run:
-          #name: install dockerize
-          #command: wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz && rm dockerize-linux-amd64-v0.6.1.tar.gz
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz && rm dockerize-linux-amd64-v0.6.1.tar.gz
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -49,7 +49,6 @@ jobs:
       - run:
           name: run unit test
           command: rails test
-      - ruby/rubocop-check
       #store code coverage artifact
       - store_artifacts:
           path: coverage/
