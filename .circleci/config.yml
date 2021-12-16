@@ -30,8 +30,7 @@ jobs:
           paths:
             - ~/.cache/gem
 
-  test:
-    parallelism: 3
+  unit-test:
     docker:
       - image: cimg/ruby:3.0.2
       - image: cimg/postgres:14.1
@@ -63,6 +62,25 @@ jobs:
       - store_artifacts:
           path: check-results.xml
 
+  lint:
+    docker:
+      - image: cimg/ruby:3.0.2
+
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: bundle install
+          command: bundle install
+      - run:
+          name: Install yarn and node
+          command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
+      - run:
+          name: run rubocop
+          command: rubocop . --out check-results.xml || true
+      - store_artifacts:
+          path: check-results.xml
+
   deploy:
     docker:
       - image: cimg/ruby:3.0.2
@@ -79,12 +97,16 @@ workflows:
   ruby-app:
     jobs:
       - build
-      - test:
+      - unit-test:
+          requires:
+            - build
+      - link:
           requires:
             - build
       - deploy:
           requires:
-            - test
+            - unit-test
+            - lint
           filters:
             branches:
               only: master
