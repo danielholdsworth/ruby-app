@@ -92,6 +92,42 @@ jobs:
       - store_artifacts:
           path: check-results.xml
 
+  browser-test:
+    docker:
+      - image: cimg/ruby:3.0.2
+      - image: cimg/postgres:14.1
+
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: bundle install
+          command: bundle install
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Set up DB
+          command: rails db:create
+      - run:
+          name: Install yarn and node
+          command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
+      - run:
+          name: Run webpack install
+          command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
+      - run:
+          command: >
+            mkdir -p web-test
+
+            bundle exec rspec spec/features --profile 10 --format RspecJunitFormatter 
+            --out web-test/results.xml --format progress
+          name: Rspec views
+      - store_test_results:
+          path: web-test/
+      - store_artifacts:
+          destination: test-results
+          path: web-test/
+
   deploy:
     docker:
       - image: cimg/ruby:3.0.2
@@ -114,10 +150,14 @@ workflows:
       - lint:
           requires:
             - build
+      - browser-test:
+          requires:
+            - build
       - deploy:
           requires:
             - unit-test
             - lint
+            - browser-test
           filters:
             branches:
               only: master
