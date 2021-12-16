@@ -54,7 +54,7 @@ jobs:
           name: Run webpack install
           command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
       - ruby/rspec-test
-      - ruby/rubocop-check:
+      - ruby/rubocop-check
       - store_artifacts:
           path: coverage/
 
