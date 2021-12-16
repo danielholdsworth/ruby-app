@@ -55,11 +55,8 @@ jobs:
           command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
       - ruby/rspec-test
       - ruby/rubocop-check:
-          out-path: /tmp/rubocop-results
       - store_artifacts:
           path: coverage/
-      - store_artifacts:
-          path: /tmp/rubocop-results
 
   deploy:
     docker:
