@@ -41,7 +41,7 @@ jobs:
           command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
       - run:
           name: Run webpack install
-          command: rm config/webpacker.yml; rails webpacker:install
+          command: rm bin/webpack; rm config/webpacker.yml; rails webpacker:install
       - ruby/rspec-test
       - ruby/rubocop-check
 
