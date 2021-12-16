@@ -100,7 +100,7 @@ workflows:
       - unit-test:
           requires:
             - build
-      - link:
+      - lint:
           requires:
             - build
       - deploy:
