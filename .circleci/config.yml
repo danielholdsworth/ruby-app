@@ -54,7 +54,9 @@ jobs:
           name: Run webpack install
           command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
       - ruby/rspec-test
-      - ruby/rubocop-check || true
+      - run:
+          name: run rubocop
+          command: rubocop . --out /public/rubocop-results/check-results.xml --format progress || true
       - store_artifacts:
           path: coverage/
       - store_artifacts:
