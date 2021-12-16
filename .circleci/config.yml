@@ -19,42 +19,32 @@ jobs:
           command: bundle -v
       - ruby/install-deps
 
-  unit-test:
+  test:
+    parallelism: 3
     docker:
-      - image: ruby:3.0.2-buster
-      - image: cimg/postgres:14.1
-
-    executor: ruby/default
+      - image: cimg/ruby:2.7-node
+      - image: circleci/postgres:9.5-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: ""
+      RAILS_ENV: test
     steps:
       - checkout
-      - run:
-          name: install rails & rubocop
-          command: gem install rails:6.1.4.1 ; gem install rubocop
       - ruby/install-deps
-      - run:
-          name: install dockerize
-          command: wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz && rm dockerize-linux-amd64-v0.6.1.tar.gz
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
-          name: Set up DB
+          name: Database setup
           command: rails db:create
-      - run:
-          name: Install yarn and node
-          command: apt update; apt install sudo -y ;curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; apt install nodejs -y; npm install --global yarn -y
-      - run:
-          name: Run webpack install
-          command: rm config/webpacker.yml; rails webpacker:install
-      - run:
-          name: run unit test
-          command: rails test
-      - run:
-          name: run rubocop lint
-          command: rubocop
-      #store code coverage artifact
-      - store_artifacts:
-          path: coverage/
+      - ruby/rspec-test
+      - ruby/rubocop-check
 
   deploy:
     docker:
