@@ -49,6 +49,9 @@ jobs:
       - run:
           name: run unit test
           command: rails test
+      - run:
+          name: run rubocop lint
+          command: rubocop
       #store code coverage artifact
       - store_artifacts:
           path: coverage/
