@@ -130,7 +130,7 @@ jobs:
 
             bundle exec rspec spec/features --profile 10 --format RspecJunitFormatter 
             --out web-test/results.xml --format progress
-          name: Rspec views
+          name: Rspec features
       - store_test_results:
           path: web-test/
       - store_artifacts:
@@ -145,6 +145,8 @@ jobs:
       - checkout
       - heroku/install
       - heroku/deploy-via-git
+        context:
+          - MY_HEROKU_API
       - run:
           name: migrate db
           command: heroku run rake db:migrate --app circleciruby
