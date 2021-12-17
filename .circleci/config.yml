@@ -145,8 +145,6 @@ jobs:
       - checkout
       - heroku/install
       - heroku/deploy-via-git
-        context:
-          - MY_HEROKU_API
       - run:
           name: migrate db
           command: heroku run rake db:migrate --app circleciruby
@@ -165,6 +163,8 @@ workflows:
           requires:
             - build
       - deploy:
+          context:
+            - MY_HEROKU_API
           requires:
             - unit-test
             - lint
