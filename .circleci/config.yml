@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.2.0
   heroku: circleci/heroku@1.2.6
-  ruby-linter: amyroi/ruby-linter@1.0.1
 
 jobs:
   build:
@@ -63,7 +62,7 @@ jobs:
       - store_test_results:
           path: unit-test/
       - store_artifacts:
-          destination: test-results
+          destination: unit-results
           path: unit-test/
       - run:
           name: run rubocop
@@ -125,7 +124,7 @@ jobs:
       - store_test_results:
           path: web-test/
       - store_artifacts:
-          destination: test-results
+          destination: web-results
           path: web-test/
 
   deploy:
