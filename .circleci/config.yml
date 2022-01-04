@@ -153,7 +153,10 @@ jobs:
 workflows:
   ruby-app:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only: develop
       - unit-test:
           requires:
             - build
