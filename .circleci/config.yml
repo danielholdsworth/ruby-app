@@ -5,7 +5,7 @@ orbs:
   heroku: circleci/heroku@1.2.6
 
 jobs:
-  build:
+  build
     docker:
       - image: ruby:3.0.2-buster
     executor: ruby/default
