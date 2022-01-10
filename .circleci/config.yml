@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circledan/rubybundler:1.0
+      - image: circledan/rubybundler:2.0
     executor: ruby/default
     steps:
       - checkout
