@@ -158,7 +158,8 @@ workflows:
       - docker/publish:
           docker-username: DOCKER_LOGIN 
           docker-password: DOCKER_PASSWORD 
-          image: circledan/rubybundler:latest
+          image: circledan/rubybundler
+          tag: latest
       - unit-test:
           requires:
             - build
