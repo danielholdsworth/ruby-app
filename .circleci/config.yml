@@ -17,9 +17,6 @@ jobs:
           keys: 
             - m1-{{ checksum "Gemfile.lock" }}
             - m1- 
-      #- run:
-          #name: install bundle
-          #command: gem install bundler:2.2.22
       - run:
           name: Which bundler?
           command: bundle -v
