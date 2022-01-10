@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: ruby:3.0.2-buster
+      - image: circledan/rubybundler:1.0
     executor: ruby/default
     steps:
       - checkout
@@ -16,9 +16,9 @@ jobs:
           keys: 
             - m1-{{ checksum "Gemfile.lock" }}
             - m1- 
-      - run:
-          name: install bundle
-          command: gem install bundler:2.2.22
+      #- run:
+          #name: install bundle
+          #command: gem install bundler:2.2.22
       - run:
           name: Which bundler?
           command: bundle -v
