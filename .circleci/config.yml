@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.2.0
   heroku: circleci/heroku@1.2.6
+  docker: circleci/docker@2.0.1
 
 jobs:
   build:
@@ -154,6 +155,10 @@ workflows:
   ruby-app:
     jobs:
       - build
+      - docker/publish:
+          docker-username: DOCKER_LOGIN 
+          docker-password: DOCKER_PASSWORD 
+          image: circledan/rubybundler:latest
       - unit-test:
           requires:
             - build
