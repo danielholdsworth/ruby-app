@@ -162,6 +162,8 @@ jobs:
 
 workflows:
   ruby-app:
+    when:
+      not: << pipeline.parameters.run_by_api >>
     jobs:
       - docker/publish:
           docker-username: DOCKER_LOGIN 
