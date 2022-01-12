@@ -148,6 +148,12 @@ jobs:
           name: migrate db
           command: heroku run rake db:migrate --app circleciruby
 
+  api-job:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - command: curl -I https://circleciruby.herokuapp.com/
+
 workflows:
   ruby-app:
     jobs:
@@ -178,3 +184,8 @@ workflows:
           filters:
             branches:
               only: master
+
+  api-workflow:
+    when: << pipeline.parameters.run_by_api >>
+    jobs:
+      - api-job
