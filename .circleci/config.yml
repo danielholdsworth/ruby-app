@@ -159,7 +159,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout 
-      - run: sh app-test.sh
+      - run: ./app-test.sh
 
 workflows:
   ruby-app:
