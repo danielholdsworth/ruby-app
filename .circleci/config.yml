@@ -8,7 +8,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circledan/rubybundler:2.0
+      - image: circledan/rubybundler:latest
     executor: ruby/default
     steps:
       - checkout
@@ -151,12 +151,14 @@ jobs:
 workflows:
   ruby-app:
     jobs:
-      - build
       - docker/publish:
           docker-username: DOCKER_LOGIN 
           docker-password: DOCKER_PASSWORD 
           image: circledan/rubybundler
           tag: latest
+      - build:
+          requires:
+            - docker/publish
       - unit-test:
           requires:
             - build
