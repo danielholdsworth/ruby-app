@@ -158,7 +158,7 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - run: curl -I https://circleciruby.herokuapp.com/
+      - run: ./app-test.sh
 
 workflows:
   ruby-app:
