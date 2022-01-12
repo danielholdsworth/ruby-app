@@ -5,6 +5,12 @@ orbs:
   heroku: circleci/heroku@1.2.6
   docker: circleci/docker@2.0.1
 
+
+parameters:
+  run_by_api:
+    type: boolean
+    default: false
+
 jobs:
   build:
     docker:
