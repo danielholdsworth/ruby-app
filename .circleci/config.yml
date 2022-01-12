@@ -158,7 +158,8 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - run: ./app-test.sh
+      - checkout 
+      - run: sh app-test.sh
 
 workflows:
   ruby-app:
