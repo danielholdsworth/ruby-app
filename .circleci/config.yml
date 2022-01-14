@@ -91,12 +91,14 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - run:
-          name: bundle install
-          command: bundle install
+      - run: bundle install --path vendor/bundle
       - run:
           name: run rubocop
           command: rubocop . --out check-results.xml || true
+      - save_cache:
+          key: bundle-cache-v1-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       - store_artifacts:
           path: check-results.xml
 
