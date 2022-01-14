@@ -14,7 +14,7 @@ parameters:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: circledan/rubybundler:latest
     executor: ruby/default
     steps:
       - checkout
