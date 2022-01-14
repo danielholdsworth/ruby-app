@@ -107,7 +107,7 @@ jobs:
 
   browser-test:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: circledan/rubybundler:latest
       - image: cimg/postgres:14.1
 
     executor: ruby/default
@@ -143,7 +143,7 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: circledan/rubybundler:latest
     executor: ruby/default
     steps:
       - checkout
