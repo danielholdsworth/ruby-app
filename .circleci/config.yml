@@ -44,7 +44,7 @@ jobs:
       - checkout
       - run:
           name: bundle install
-          command: gem install nokogiri ; bundle install --local
+          command: gem install nokogiri -v 1.12.5 ; bundle install --local
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
