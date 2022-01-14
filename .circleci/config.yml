@@ -17,22 +17,19 @@ jobs:
       - image: circledan/rubybundler:latest
     executor: ruby/default
     steps:
-      - run:
-          name: rm package-lock
-          command: rm package-lock.json
       - checkout
-      - restore_cache:
-          name: Restore Gem Cache
-          keys: 
-            - m1-{{ checksum "Gemfile.lock" }}
-            - m1- 
+      #- restore_cache:
+          #name: Restore Gem Cache
+          #keys: 
+            #- m2-{{ checksum "Gemfile.lock" }}
+            #- m2- 
       - run:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps
       - save_cache:
           name: Save Gemfile Cache
-          key: m1-{{ checksum "Gemfile.lock" }}
+          key: m2-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/.cache/gem
 
@@ -44,11 +41,11 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - restore_cache:
-          name: Restore Gem Cache
-          keys: 
-            - m1-{{ checksum "Gemfile.lock" }}
-            - m1- 
+      #- restore_cache:
+          #name: Restore Gem Cache
+          #keys: 
+            #- m2-{{ checksum "Gemfile.lock" }}
+            #- m2- 
       - run:
           name: bundle install
           command: bundle install
@@ -85,7 +82,7 @@ jobs:
           path: check-results.xml
       - save_cache:
           name: Save Gemfile Cache
-          key: m1-{{ checksum "Gemfile.lock" }}
+          key: m2-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/.cache/gem
 
