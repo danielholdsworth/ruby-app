@@ -92,15 +92,19 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: bundlev2-{{ checksum "Gemfile.lock" }} 
-      - run: bundle install --path=vendor/bundle --jobs=4 --retry=3
+          name: Restore Gem Cache
+          keys: 
+            - m2-{{ checksum "Gemfile.lock" }}
+            - m2- 
+      - run: bundle install
       - run:
           name: run rubocop
           command: rubocop . --out check-results.xml || true
       - save_cache:
-          key: bundlev2-{{ checksum "Gemfile.lock" }}
+          name: Save Gemfile Cache
+          key: m2-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - ~/.cache/gem
       - store_artifacts:
           path: check-results.xml
 
