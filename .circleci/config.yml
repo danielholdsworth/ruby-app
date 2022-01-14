@@ -4,7 +4,6 @@ orbs:
   ruby: circleci/ruby@1.2.0
   heroku: circleci/heroku@1.2.6
   docker: circleci/docker@2.0.1
-  bundle-install: toshimaru/bundle-install@0.3.1
 
 parameters:
   run_by_api:
@@ -48,11 +47,9 @@ jobs:
           keys: 
             - m2-{{ checksum "Gemfile.lock" }}
             - m2- 
-      #- run:
-          #name: bundle install
-          #command: bundle install
-      - bundle-install/bundle-install:
-          cache_key_prefix: bundle-v1
+      - run:
+          name: bundle install
+          command: bundle install
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -94,11 +91,9 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      #- run:
-          #name: bundle install
-          #command: bundle install
-      - bundle-install/bundle-install:
-          cache_key_prefix: bundle-v1
+      - run:
+          name: bundle install
+          command: bundle install
       - run:
           name: run rubocop
           command: rubocop . --out check-results.xml || true
@@ -116,11 +111,9 @@ jobs:
           name: rm package-lock
           command: rm -rf package-lock.json
       - checkout
-      #- run:
-          #name: bundle install
-          #command: bundle install
-      - bundle-install/bundle-install:
-          cache_key_prefix: bundle-v1
+      - run:
+          name: bundle install
+          command: bundle install
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -160,9 +153,6 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - run:
-          name: rm package-lock
-          command: rm -rf package-lock.json
       - checkout 
       - run: ./app-test.sh
 
