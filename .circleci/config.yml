@@ -47,7 +47,7 @@ jobs:
           command: gem install nokogiri -v 1.12.5
       - run:
           name: bundle install from cache
-          command: bundle install --local
+          command: bundle install --path /vendor/cache
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
