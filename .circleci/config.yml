@@ -17,6 +17,9 @@ jobs:
       - image: circledan/rubybundler:latest
     executor: ruby/default
     steps:
+      - run:
+          name: rm package-lock
+          command: rm -rf package-lock.json
       - checkout
       #- restore_cache:
           #name: Restore Gem Cache
