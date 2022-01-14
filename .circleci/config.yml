@@ -35,7 +35,7 @@ jobs:
 
   unit-test:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: circledan/rubybundler:latest
       - image: cimg/postgres:14.1
 
     executor: ruby/default
@@ -55,9 +55,9 @@ jobs:
       - run:
           name: Set up DB
           command: rails db:create
-      - run:
-          name: Install yarn and node
-          command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
+      #- run:
+          #name: Install yarn and node
+          c#ommand: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
       - run:
           name: Run webpack install
           command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
@@ -88,17 +88,17 @@ jobs:
 
   lint:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: circledan/rubybundler:latest
 
     executor: ruby/default
     steps:
       - checkout
-      - run:
-          name: bundle install
-          command: bundle install
-      - run:
-          name: Install yarn and node
-          command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
+      #- run:
+          #name: bundle install
+          #command: bundle install
+      #- run:
+          #name: Install yarn and node
+          #command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
       - run:
           name: run rubocop
           command: rubocop . --out check-results.xml || true
@@ -122,9 +122,9 @@ jobs:
       - run:
           name: Set up DB
           command: rails db:create
-      - run:
-          name: Install yarn and node
-          command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
+      #- run:
+          #name: Install yarn and node
+          #command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
       - run:
           name: Run webpack install
           command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
