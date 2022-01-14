@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-buster
+FROM cimg/ruby:3.0.2
 RUN gem install bundler:2.2.22
 RUN apt-get update
 RUN apt-get -y install curl gnupg
