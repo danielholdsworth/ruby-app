@@ -27,8 +27,8 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps:
-          with-cache: false
-          key: gems-v1
+          with-cache: true
+          key: gems-v2
       - save_cache:
           name: Save Gemfile Cache
           key: m2-{{ checksum "Gemfile.lock" }}
