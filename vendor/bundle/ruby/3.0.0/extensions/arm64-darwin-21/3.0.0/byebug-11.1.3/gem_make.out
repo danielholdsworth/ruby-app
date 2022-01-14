@@ -1,0 +1,19 @@
+current directory: /Users/danielholdsworth/Git/rails-app/myapp/vendor/bundle/ruby/3.0.0/gems/byebug-11.1.3/ext/byebug
+/Users/danielholdsworth/.rbenv/versions/3.0.2/bin/ruby -I /Users/danielholdsworth/.rbenv/versions/3.0.2/lib/ruby/3.0.0 -r ./siteconf20220114-69701-15vyx8.rb extconf.rb
+creating Makefile
+
+current directory: /Users/danielholdsworth/Git/rails-app/myapp/vendor/bundle/ruby/3.0.0/gems/byebug-11.1.3/ext/byebug
+make DESTDIR\= clean
+
+current directory: /Users/danielholdsworth/Git/rails-app/myapp/vendor/bundle/ruby/3.0.0/gems/byebug-11.1.3/ext/byebug
+make DESTDIR\=
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/danielholdsworth/Git/rails-app/myapp/vendor/bundle/ruby/3.0.0/gems/byebug-11.1.3/ext/byebug
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 byebug.bundle ./.gem.20220114-69701-vb3cij/byebug

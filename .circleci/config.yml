@@ -43,13 +43,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          name: Restore Gem Cache
-          keys: 
-            - m2-{{ checksum "Gemfile.lock" }}
-            - m2- 
+          key: bundlev2-{{ checksum "Gemfile.lock" }}
       - run:
           name: bundle install
-          command: bundle install
+          command: bundle install --path=vendor/bundle --jobs=4 --retry=3
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -79,10 +76,9 @@ jobs:
       - store_artifacts:
           path: check-results.xml
       - save_cache:
-          name: Save Gemfile Cache
-          key: m2-{{ checksum "Gemfile.lock" }}
+          key: bundlev2-{{ checksum "Gemfile.lock" }}
           paths:
-            - ~/.cache/gem
+            - vendor/bundle
 
   lint:
     docker:
