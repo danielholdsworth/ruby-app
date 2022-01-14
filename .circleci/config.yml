@@ -48,12 +48,9 @@ jobs:
           keys: 
             - m2-{{ checksum "Gemfile.lock" }}
             - m2- 
-      #- run:
-          #name: bundle install
-          #command: bundle install
-      - ruby/install-deps:
-          with-cache: true
-          key: gems-v2
+      - run:
+          name: bundle install
+          command: bundle install
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -95,12 +92,9 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      #- run:
-          #name: bundle install
-          #command: bundle install
-      - ruby/install-deps:
-          with-cache: true
-          key: gems-v2
+      - run:
+          name: bundle install
+          command: bundle install
       - run:
           name: run rubocop
           command: rubocop . --out check-results.xml || true
@@ -118,12 +112,9 @@ jobs:
           name: rm package-lock
           command: rm -rf package-lock.json
       - checkout
-      #- run:
-          #name: bundle install
-          #command: bundle install
-      - ruby/install-deps:
-          with-cache: true
-          key: gems-v2
+      - run:
+          name: bundle install
+          command: bundle install
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
