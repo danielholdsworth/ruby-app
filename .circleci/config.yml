@@ -18,11 +18,11 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      #- restore_cache:
-          #name: Restore Gem Cache
-          #keys: 
-            #- m2-{{ checksum "Gemfile.lock" }}
-            #- m2- 
+      - restore_cache:
+          name: Restore Gem Cache
+          keys: 
+            - m2-{{ checksum "Gemfile.lock" }}
+            - m2- 
       - run:
           name: Which bundler?
           command: bundle -v
@@ -42,11 +42,11 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      #- restore_cache:
-          #name: Restore Gem Cache
-          #keys: 
-            #- m2-{{ checksum "Gemfile.lock" }}
-            #- m2- 
+      - restore_cache:
+          name: Restore Gem Cache
+          keys: 
+            - m2-{{ checksum "Gemfile.lock" }}
+            - m2- 
       - run:
           name: bundle install
           command: bundle install
@@ -56,9 +56,6 @@ jobs:
       - run:
           name: Set up DB
           command: rails db:create
-      #- run:
-          #name: Install yarn and node
-          #command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
       - run:
           name: Run webpack install
           command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
@@ -94,12 +91,9 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      #- run:
-          #name: bundle install
-          #command: bundle install
-      #- run:
-          #name: Install yarn and node
-          #command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
+      - run:
+          name: bundle install
+          command: bundle install
       - run:
           name: run rubocop
           command: rubocop . --out check-results.xml || true
@@ -126,9 +120,6 @@ jobs:
       - run:
           name: Set up DB
           command: rails db:create
-      #- run:
-          #name: Install yarn and node
-          #command: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -; sudo apt install nodejs -y; sudo npm install --global yarn -y
       - run:
           name: Run webpack install
           command: rm bin/webpack*; rm config/webpacker.yml; rails webpacker:install
