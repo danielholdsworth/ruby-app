@@ -11,6 +11,14 @@ parameters:
     default: false
 
 jobs:
+  docker-build:
+    docker:
+      - image: circleci/node:9.8.0-stretch-browsers
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run: docker build .
   build:
     docker:
       - image: circledan/rubybundler:latest
@@ -43,11 +51,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install nokogiri
-          command: gem install nokogiri -v 1.12.5
-      - run:
           name: bundle install from cache
-          command: bundle install --path /vendor/cache
+          command: bundle install
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -163,12 +168,13 @@ workflows:
     when:
       not: << pipeline.parameters.run_by_api >>
     jobs:
-      - docker/publish:
-          docker-username: DOCKER_LOGIN 
-          docker-password: DOCKER_PASSWORD
-          cache_from: '$DOCKER_USERNAME/$DOCKER_REPONAME:latest'
-          image: circledan/rubybundler
-          tag: latest
+      - docker-build
+      #- docker/publish:
+          #docker-username: DOCKER_LOGIN 
+          #docker-password: DOCKER_PASSWORD
+          #cache_from: '$DOCKER_USERNAME/$DOCKER_REPONAME:latest'
+          #image: circledan/rubybundler
+          #tag: latest
       - build:
           requires:
             - docker/publish
