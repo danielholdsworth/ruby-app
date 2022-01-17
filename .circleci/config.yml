@@ -177,7 +177,7 @@ workflows:
           #tag: latest
       - build:
           requires:
-            - docker/publish
+            - docker-build
       - unit-test:
           requires:
             - build
