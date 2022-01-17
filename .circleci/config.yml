@@ -20,17 +20,15 @@ jobs:
       - restore_cache:
           name: Restore Gem Cache
           keys: 
-            - m3-{{ checksum "Gemfile.lock" }}
-            - m3- 
+            - v1-{{ checksum "Gemfile.lock" }}
+            - v1- 
       - run:
           name: Which bundler?
           command: bundle -v
-      - ruby/install-deps:
-          with-cache: true
-          key: gems-v2
+      - ruby/install-deps
       - save_cache:
           name: Save Gemfile Cache
-          key: m3-{{ checksum "Gemfile.lock" }}
+          key: v1-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/.cache/gem
 
@@ -45,8 +43,8 @@ jobs:
       - restore_cache:
           name: Restore Gem Cache
           keys: 
-            - m3-{{ checksum "Gemfile.lock" }}
-            - m3- 
+            - v1-{{ checksum "Gemfile.lock" }}
+            - v1- 
       - run:
           name: bundle install
           command: bundle install
@@ -80,7 +78,7 @@ jobs:
           path: check-results.xml
       - save_cache:
           name: Save Gemfile Cache
-          key: m3-{{ checksum "Gemfile.lock" }}
+          key: v1-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/.cache/gem
 
@@ -94,15 +92,15 @@ jobs:
       - restore_cache:
           name: Restore Gem Cache
           keys: 
-            - m3-{{ checksum "Gemfile.lock" }}
-            - m3- 
+            - v1-{{ checksum "Gemfile.lock" }}
+            - v1- 
       - run: bundle install
       - run:
           name: run rubocop
           command: rubocop . --out check-results.xml || true
       - save_cache:
           name: Save Gemfile Cache
-          key: m3-{{ checksum "Gemfile.lock" }}
+          key: v1-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/.cache/gem
       - store_artifacts:
