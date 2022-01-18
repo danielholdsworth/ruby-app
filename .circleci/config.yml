@@ -167,15 +167,13 @@ workflows:
     when:
       not: << pipeline.parameters.run_by_api >>
     jobs:
-      - docker/publish:
-          docker-username: DOCKER_LOGIN 
-          docker-password: DOCKER_PASSWORD
-          cache_from: '$DOCKER_USERNAME/$DOCKER_REPONAME:latest'
-          image: circledan/rubybundler
-          tag: latest
-      - build:
-          requires:
-            - docker/publish
+      #- docker/publish:
+          #docker-username: DOCKER_LOGIN 
+          #docker-password: DOCKER_PASSWORD
+          #cache_from: '$DOCKER_USERNAME/$DOCKER_REPONAME:latest'
+          #image: circledan/rubybundler
+          #tag: latest
+      - build
       - unit-test:
           requires:
             - build
