@@ -174,25 +174,25 @@ workflows:
           #image: circledan/rubybundler
           #tag: latest
       - build
-      - unit-test:
-          requires:
-            - build
-      - lint:
-          requires:
-            - build
-      - browser-test:
-          requires:
-            - build
-      - deploy:
-          context:
-            - dan
-          requires:
-            - unit-test
-            - lint
-            - browser-test
-          filters:
-            branches:
-              only: master
+      #- unit-test:
+          #requires:
+            #- build
+      #- lint:
+          #requires:
+            #- build
+      #- browser-test:
+          #requires:
+            #- build
+      #- deploy:
+          #context:
+            #- dan
+          #requires:
+            #- unit-test
+            #- lint
+            #- browser-test
+          #filters:
+            #branches:
+              #only: master
 
   api-workflow:
     when: << pipeline.parameters.run_by_api >>
