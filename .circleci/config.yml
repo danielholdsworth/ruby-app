@@ -19,16 +19,16 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - asset-cache-v2-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - asset-cache-v2-{{ arch }}-{{ .Branch }}
       - run:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps:
           with-cache: true
-          key: asset-cache-v2-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: asset-cache-v2-{{ arch }}-{{ .Branch }}
       - save_cache:
           name: Save Gemfile Cache
-          key: asset-cache-v2-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: asset-cache-v2-{{ arch }}-{{ .Branch }}
           paths:
             - ~/.cache/gem
 
