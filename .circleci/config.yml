@@ -12,9 +12,8 @@ parameters:
 
 jobs:
   build:
-    docker:
-      - image: circledan/rubybundler:latest
-    executor: ruby/default
+    machine: true
+    resource_class: danielholdsworth/rubyrunner
     steps:
       - checkout
       - restore_cache:
@@ -167,12 +166,12 @@ workflows:
     when:
       not: << pipeline.parameters.run_by_api >>
     jobs:
-      - docker/publish:
-          docker-username: DOCKER_LOGIN 
-          docker-password: DOCKER_PASSWORD
-          cache_from: '$DOCKER_USERNAME/$DOCKER_REPONAME:latest'
-          image: circledan/rubybundler
-          tag: latest
+      #- docker/publish:
+          #docker-username: DOCKER_LOGIN 
+          #docker-password: DOCKER_PASSWORD
+          #cache_from: '$DOCKER_USERNAME/$DOCKER_REPONAME:latest'
+          #image: circledan/rubybundler
+          #tag: latest
       - build
       - unit-test:
           requires:
