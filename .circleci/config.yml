@@ -12,8 +12,9 @@ parameters:
 
 jobs:
   build:
-    machine: true
-    resource_class: danielholdsworth/rubyrunner
+    docker:
+      - image: circledan/rubybundler:latest
+    executor: ruby/default
     steps:
       - checkout
       - restore_cache:
