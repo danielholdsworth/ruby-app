@@ -4,6 +4,7 @@ orbs:
   ruby: circleci/ruby@1.2.0
   heroku: circleci/heroku@1.2.6
   docker: circleci/docker@2.0.1
+  queue: eddiewebb/queue@1.6.5
 
 parameters:
   run_by_api:
@@ -167,12 +168,7 @@ workflows:
     when:
       not: << pipeline.parameters.run_by_api >>
     jobs:
-      #- docker/publish:
-          #docker-username: DOCKER_LOGIN 
-          #docker-password: DOCKER_PASSWORD
-          #cache_from: '$DOCKER_USERNAME/$DOCKER_REPONAME:latest'
-          #image: circledan/rubybundler
-          #tag: latest
+      - queue/block_workflow
       - build
       - unit-test:
           requires:
