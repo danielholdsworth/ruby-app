@@ -184,6 +184,7 @@ workflows:
           context:
             - dan
           requires:
+            - queue/block_workflow
             - unit-test
             - lint
             - browser-test
