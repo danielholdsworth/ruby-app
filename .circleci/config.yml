@@ -29,7 +29,7 @@ jobs:
           key: asset-cache-v2-{{ arch }}-{{ .Branch }}
       - save_cache:
           name: Save Gemfile Cache
-          key: asset-cache-v2-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: asset-cache-v2-{{ arch }}-{{ .Branch }}-{{ epoch }}
           paths:
             - ~/.cache/gem
 
