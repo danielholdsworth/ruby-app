@@ -17,6 +17,8 @@ jobs:
       - image: circledan/rubybundler:latest
     executor: ruby/default
     steps:
+      - attach_workspace:
+          at: .
       - checkout
       - restore_cache:
           keys:
