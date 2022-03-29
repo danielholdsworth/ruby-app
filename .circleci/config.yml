@@ -17,6 +17,8 @@ jobs:
       - image: circledan/rubybundler:latest
     executor: ruby/default
     steps:
+      - attach_workspace:
+          at: .
       - checkout
       - restore_cache:
           keys:
@@ -54,7 +56,7 @@ jobs:
             - v1- 
       - run:
           name: bundle install
-          command: ping 8.8.8.8
+          command: bundle install
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -180,12 +182,14 @@ workflows:
       - unit-test:
           requires:
             - build
+            - lint
       - lint:
           requires:
             - build
       - browser-test:
           requires:
             - build
+            - unit-test
       - deploy:
           context:
             - dan
