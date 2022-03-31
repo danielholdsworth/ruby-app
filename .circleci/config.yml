@@ -7,7 +7,7 @@ orbs:
   queue: eddiewebb/queue@1.6.5
 
 parameters:
-  run_by_api:
+  deploy:
     type: boolean
     default: false
 
@@ -156,17 +156,26 @@ jobs:
           name: migrate db
           command: heroku run rake db:migrate --app circleciruby
 
-  api-job:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout 
-      - run: ./app-test.sh
-
 workflows:
-  ruby-app:
+  ruby-app-build&test:
     when:
-      not: << pipeline.parameters.run_by_api >>
+      not: << pipeline.parameters.deploy >>
+    jobs:
+      - queue/block_workflow:
+          only-on-branch: master 
+      - build
+      - unit-test:
+          requires:
+            - build
+      - lint:
+          requires:
+            - build
+      - browser-test:
+          requires:
+            - build
+
+  ruby-app-full:
+    when: << pipeline.parameters.deploy >>
     jobs:
       - queue/block_workflow:
           only-on-branch: master 
@@ -191,8 +200,3 @@ workflows:
           filters:
             branches:
               only: master
-
-  api-workflow:
-    when: << pipeline.parameters.run_by_api >>
-    jobs:
-      - api-job
