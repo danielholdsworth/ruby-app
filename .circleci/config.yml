@@ -32,10 +32,6 @@ jobs:
           key: asset-cache-v2-{{ arch }}-{{ .Branch }}-{{ epoch }}
           paths:
             - ~/.cache/gem
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
 
   unit-test:
     docker:
@@ -45,8 +41,6 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - attach_workspace:
-          at: .
       - restore_cache:
           name: Restore Gem Cache
           keys: 
