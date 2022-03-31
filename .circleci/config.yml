@@ -156,13 +156,6 @@ jobs:
           name: migrate db
           command: heroku run rake db:migrate --app circleciruby
 
-  api-job:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout 
-      - run: ./app-test.sh
-
 workflows:
   ruby-app-build&test:
     when:
