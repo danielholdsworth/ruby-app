@@ -169,8 +169,11 @@ workflows:
       not: << pipeline.parameters.deploy >>
     jobs:
       - queue/block_workflow:
-          only-on-branch: master 
-      - build
+          only-on-branch: master
+      - param-test 
+      - build:
+          requires:
+            - param-test
       - unit-test:
           requires:
             - build
