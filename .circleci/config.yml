@@ -178,12 +178,12 @@ workflows:
       - browser-test:
           requires:
             - build
-      #- deploy-or-not:
-          #requires:
-            #- build
-            #- unit-test
-            #- lint
-            #- browser-test
+      - deploy-or-not:
+          requires:
+            - build
+            - unit-test
+            - lint
+            - browser-test
 
   ruby-app-deploy:
     when: << pipeline.parameters.deploy >>
