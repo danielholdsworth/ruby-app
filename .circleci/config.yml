@@ -156,12 +156,12 @@ jobs:
           name: migrate db
           command: heroku run rake db:migrate --app circleciruby
 
-  param-test:
+  deploy-or-not:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run: ./param.sh
+      - run: ./deploy-or-not.sh
 
 workflows:
   ruby-app-build&test:
@@ -170,25 +170,6 @@ workflows:
     jobs:
       - queue/block_workflow:
           only-on-branch: master
-      - param-test 
-      - build:
-          requires:
-            - param-test
-      - unit-test:
-          requires:
-            - build
-      - lint:
-          requires:
-            - build
-      - browser-test:
-          requires:
-            - build
-
-  ruby-app-full:
-    when: << pipeline.parameters.deploy >>
-    jobs:
-      - queue/block_workflow:
-          only-on-branch: master 
       - build
       - unit-test:
           requires:
@@ -199,14 +180,23 @@ workflows:
       - browser-test:
           requires:
             - build
+      #- deploy-or-not:
+          #requires:
+            #- build
+            #- unit-test
+            #- lint
+            #- browser-test
+
+  ruby-app-deploy:
+    when: << pipeline.parameters.deploy >>
+    jobs:
+      - queue/block_workflow:
+          only-on-branch: master 
       - deploy:
           context:
             - dan
           requires:
             - queue/block_workflow
-            - unit-test
-            - lint
-            - browser-test
           filters:
             branches:
               only: master
