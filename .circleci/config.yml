@@ -161,7 +161,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run: ./param.sh
+      - run: sh param.sh
 
 workflows:
   ruby-app-build&test:
