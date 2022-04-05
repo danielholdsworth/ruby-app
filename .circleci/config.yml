@@ -168,8 +168,6 @@ workflows:
     when:
       not: << pipeline.parameters.deploy >>
     jobs:
-      - queue/block_workflow:
-          only-on-branch: master
       - build
       - unit-test:
           requires:
