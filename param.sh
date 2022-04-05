@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
-GIT_COMMIT_MSG=git log --format=oneline -n 1 $CIRCLE_SHA1
-CI_COMMIT_LABEL=[[ "$GIT_COMMIT_MSG" =~ ^.*\[(major|minor|patch)\ ci\]|\[ci\ (major|minor|patch)\].*$ ]] && echo ${BASH_REMATCH[1]}${BASH_REMATCH[2]}
+GIT_COMMIT_MSG=$(git log --pretty=oneline -n 1)
 
-echo $CI_COMMIT_LABEL
+if [[ $GIT_COMMIT_MSG == *"[deploy]"* ]]; then
+  echo "Deploy Requested!"
+
+fi
+
