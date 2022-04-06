@@ -21,12 +21,12 @@ orbs:
               type: string
             bool: 
               description: is bool true or false
-              type: string                            
+              type: boolean                            
         steps:
           - run:
               environment:
-                ORG: $CIRCLE_PROJECT_USERNAME
-                PROJECT: $CIRCLE_PROJECT_REPONAME
+                ORG: <<parameters.org>>
+                PROJECT: <<parameters.project>>
                 PARAM: <<parameters.param>>
                 BOOL: <<parameters.bool>>
               name: Deploy or not?
