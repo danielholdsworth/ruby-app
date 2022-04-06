@@ -6,6 +6,32 @@ orbs:
   docker: circleci/docker@2.0.1
   queue: eddiewebb/queue@1.6.5
 
+  gitmessage:
+    commands:
+      deploy-or-not:
+        parameters:
+            project: 
+              description: Name of project
+              type: string
+            org: 
+              description: Name of org
+              type: string
+            param: 
+              description: Name of param to change
+              type: string
+            bool: 
+              description: is bool true or false
+              type: string                            
+        steps:
+          - run:
+              environment:
+                ORG: <<parameters.org>>
+                PROJECT: <<parameters.project>>
+                PARAM: <<parameters.param>>
+                BOOL: <<parameters.bool>>
+              name: Deploy or not?
+              command: ./deploy-or-not.sh
+
 parameters:
   deploy:
     type: boolean
@@ -161,8 +187,12 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run: ./deploy-or-not.sh
-#comment
+      - gitmessage/deploy-or-not:
+          org: danielholdsworth
+          project: ruby-app
+          param: deploy
+          bool: true
+
 workflows:
   ruby-app-build&test:
     when:
