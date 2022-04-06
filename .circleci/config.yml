@@ -31,7 +31,7 @@ orbs:
                 BOOL: <<parameters.bool>>
               name: Deploy or not?
               command: ./deploy-or-not.sh
-
+#comment
 parameters:
   deploy:
     type: boolean
