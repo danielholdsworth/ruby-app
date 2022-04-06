@@ -10,12 +10,12 @@ orbs:
     commands:
       deploy-or-not:
         parameters:
-            project: 
-              description: Name of project
-              type: string
-            org: 
-              description: Name of org
-              type: string
+            #project: 
+              #description: Name of project
+              #type: string
+            #org: 
+              #description: Name of org
+              #type: string
             param: 
               description: Name of param to change
               type: string
@@ -25,8 +25,8 @@ orbs:
         steps:
           - run:
               environment:
-                ORG: <<parameters.org>>
-                PROJECT: <<parameters.project>>
+                ORG: $CIRCLE_PROJECT_USERNAME
+                PROJECT: $CIRCLE_PROJECT_REPONAME
                 PARAM: <<parameters.param>>
                 BOOL: <<parameters.bool>>
               name: Deploy or not?
@@ -188,8 +188,8 @@ jobs:
     steps:
       - checkout
       - gitmessage/deploy-or-not:
-          org: danielholdsworth
-          project: ruby-app
+          #org: danielholdsworth
+          #project: ruby-app
           param: deploy
           bool: true
 
