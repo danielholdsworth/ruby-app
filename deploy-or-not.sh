@@ -7,7 +7,7 @@ if [[ $GIT_COMMIT_MSG == *"[deploy]"* ]]; then
   curl --request POST \
   --url https://circleci.com/api/v2/project/gh/$ORG/$PROJECT/pipeline \
   --header "Circle-Token: $CIRCLE_TOKEN" \
-  --header 'content-type: application/json' \
-  --data "{'parameters':{"$PARAM":"$BOOL"}}"
+  --header 'content-type: application/json' #\
+  #--data "{'parameters':{"$PARAM":"$BOOL"}}"
 fi
 
