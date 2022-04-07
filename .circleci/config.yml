@@ -19,9 +19,9 @@ orbs:
             param: 
               description: Name of param to change
               type: string
-            bool: 
-              description: is bool true or false
-              type: string                           
+            #bool: 
+              #description: is bool true or false
+              #type: string                           
         steps:
           - run:
               environment:
