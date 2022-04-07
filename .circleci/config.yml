@@ -13,22 +13,15 @@ orbs:
             project: 
               description: Name of project
               type: string
-            #org: 
-              #description: Name of org
-              #type: string
             param: 
               description: Name of param to change
-              type: string
-            #bool: 
-              #description: is bool true or false
-              #type: string                           
+              type: string                          
         steps:
           - run:
               environment:
                 ORG: $CIRCLE_PROJECT_USERNAME
                 PROJECT: <<parameters.project>>
                 PARAM: <<parameters.param>>
-                #BOOL: <<parameters.bool>> no need to set bool really as you would always set it to true
               name: Deploy or not?
               command: ./deploy-or-not.sh
 
@@ -188,10 +181,9 @@ jobs:
     steps:
       - checkout
       - gitmessage/deploy-or-not:
-          #org: danielholdsworth
           project: ruby-app
           param: deploy
-          #bool: "true"
+
 
 workflows:
   ruby-app-build&test:
