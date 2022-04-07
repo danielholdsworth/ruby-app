@@ -10,9 +10,9 @@ orbs:
     commands:
       deploy-or-not:
         parameters:
-            #project: 
-              #description: Name of project
-              #type: string
+            project: 
+              description: Name of project
+              type: string
             #org: 
               #description: Name of org
               #type: string
@@ -26,7 +26,7 @@ orbs:
           - run:
               environment:
                 ORG: $CIRCLE_PROJECT_USERNAME
-                PROJECT: $CIRCLE_PROJECT_REPONAME
+                PROJECT: <<parameters.project>>
                 PARAM: <<parameters.param>>
                 BOOL: <<parameters.bool>>
               name: Deploy or not?
@@ -187,11 +187,9 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run: echo ${CIRCLE_PROJECT_USERNAME}
-      - run: echo ${$CIRCLE_PROJECT_REPONAME}
       - gitmessage/deploy-or-not:
           #org: danielholdsworth
-          #project: ruby-app
+          project: ruby-app
           param: deploy
           bool: true
 
