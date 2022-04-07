@@ -187,6 +187,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - run: echo ${CIRCLE_PROJECT_USERNAME}
+      - run: echo ${$CIRCLE_PROJECT_REPONAME}
       - gitmessage/deploy-or-not:
           #org: danielholdsworth
           #project: ruby-app
