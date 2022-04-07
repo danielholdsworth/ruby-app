@@ -13,14 +13,14 @@ orbs:
             project: 
               description: Name of project
               type: string
-            param: 
-              description: Name of param to change
-              type: string                          
+            #param: 
+              #description: Name of param to change
+              #type: string                          
         steps:
           - run:
               environment:
-                ORG: $CIRCLE_PROJECT_USERNAME
-                PROJECT: <<parameters.project>>
+                #ORG: $CIRCLE_PROJECT_USERNAME
+                #PROJECT: <<parameters.project>>
                 PARAM: <<parameters.param>>
               name: Deploy or not?
               command: ./deploy-or-not.sh
@@ -181,7 +181,7 @@ jobs:
     steps:
       - checkout
       - gitmessage/deploy-or-not:
-          project: ruby-app
+          #project: ruby-app
           param: deploy
 
 
