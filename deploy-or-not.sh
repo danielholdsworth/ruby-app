@@ -8,6 +8,6 @@ if [[ $GIT_COMMIT_MSG == *"[deploy]"* ]]; then
   --url https://circleci.com/api/v2/project/gh/danielholdsworth/ruby-app/pipeline \
   --header "Circle-Token: $CIRCLE_TOKEN" \
   --header 'content-type: application/json' \
-  --data '{"parameters":{"'"$PARAM"'":"'"$BOOL"'"}}'
+  --data '{"parameters":{"'"$PARAM"'":"true"}}'
 fi
 
