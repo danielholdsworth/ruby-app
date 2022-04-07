@@ -10,12 +10,12 @@ orbs:
     commands:
       deploy-or-not:
         parameters:
-            project: 
-              description: Name of project
-              type: string
-            #param: 
-              #description: Name of param to change
-              #type: string                          
+            #project: 
+              #description: Name of project
+              #type: string
+            param: 
+              description: Name of param to change
+              type: string                          
         steps:
           - run:
               environment:
