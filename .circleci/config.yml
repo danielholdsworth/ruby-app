@@ -5,8 +5,7 @@ orbs:
   heroku: circleci/heroku@1.2.6
   docker: circleci/docker@2.0.1
   queue: eddiewebb/queue@1.6.5
-  
-  gitmessage: danielholdsworth/gitmessageorb@2.0.0
+  gitmessageorb: danielholdsworth/gitmessageorb@2.0.0
 
 parameters:
   deploy:
@@ -158,15 +157,6 @@ jobs:
           name: migrate db
           command: heroku run rake db:migrate --app circleciruby
 
-  deploy-or-not:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - gitmessage/deploy-or-not:
-          param: deploy
-
-
 workflows:
   ruby-app-build&test:
     when:
@@ -182,7 +172,8 @@ workflows:
       - browser-test:
           requires:
             - build
-      - deploy-or-not:
+      - gitmessageorb/deploy-or-not:
+          param: deploy
           requires:
             - build
             - unit-test
