@@ -5,21 +5,8 @@ orbs:
   heroku: circleci/heroku@1.2.6
   docker: circleci/docker@2.0.1
   queue: eddiewebb/queue@1.6.5
-  gitmessageorb: danielholdsworth/gitmessageorb@dev:alpha
-
-  #gitmessage:
-    #commands:
-      #deploy-or-not:
-        #parameters:
-            #param: 
-              #description: Name of param to change
-              #type: string                          
-        #steps:
-          #- run:
-              #environment:
-                #PARAM: <<parameters.param>>
-              #name: Deploy or not?
-              #command: ./deploy-or-not.sh
+  
+  gitmessage: danielholdsworth/gitmessageorb@2.0.0
 
 parameters:
   deploy:
